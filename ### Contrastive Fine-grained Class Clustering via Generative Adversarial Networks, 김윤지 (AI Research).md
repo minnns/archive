@@ -1,0 +1,30 @@
+### Contrastive Fine-grained Class Clustering via Generative Adversarial Networks, 김윤지 (AI Research)
+- abstract
+  - scene decomposition - 이미지에서 fore/back ground 분리
+  - foreground에 대해서만 피쳐 추출
+  - discriminator embedding space 에서 클러스터링 진행
+  - 따로 인코더를 두지 않음
+- 초기 바닐라 Gan과 Sx, Sxz, Sz 를 모두 사용하는게 다름
+- 인코더도 하나 추가된 것이 다름
+- 정량적 평가에서는 아주 큰 차이는 없음..
+- 정성적 평가를 보면, 학습 단계에서 픽셀 레벨의 리컨스터럭션 로스를 안 썼음에도 불구하고 레이아웃, 오브젝트의 하이레벨 피쳐를 잘 반영하고 있다고 판단됨
+- SimCLR
+  - 이미지의 하이레벨 피쳐를 unsupervised 방식으로 뽑는 것이 목표
+  - Negative pair를 늘렸을 때 성능이 좋다
+  - 아타리 데이터에는 이미지마다 status 에 대한 라벨링이 되어 있다 (현재 시각, 게임 상태, 스코어, 플레이어 위치 등등..)
+- InfoGAN 
+  - 특징 중 하나 : 설명 가능한 모델을 지향하여 만든 것
+- FineGAN
+  - 총 3개의 latent layer 학습
+- ??의 한계점  (주어가 뭔지 모르겠음)
+  - back ground, fore ground labeling 다 붙였다 (ㅎㄷㅎㄷ)
+  - psuedo labeling 이 필요하다
+  - 다양한 이미지를 만들어내지는 못한다
+- 해결 방법
+  - 라벨 없는 scene decomposition
+  - 기존에 발표된 방법 차용
+    - 이미 back/fore 구별이 잘 된다면, fore이미지에 살짝 가공을 하더라도 back 과 잘 어울리지 않을까 에서 착안
+    - fore 이미지의 마스크를 유추하는 것이 목표
+    - generator 부분에 그대로 가져왔다
+  - contrastive loss를 이용해서 obj. fun.을 구성했다
+    - 새로운 형태의 loss 함수를 제안한다
